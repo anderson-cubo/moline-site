@@ -1,0 +1,33 @@
+.is-one-quarter.sidebar {
+    background-color: #ccc;
+}
+img{
+    padding-right: 15px;
+}
+.hero-body{
+    padding-bottom: 100px;
+}
+.message{
+    padding-bottom: 10px;
+}
+ .panel {
+   margin-top: 10px;
+   margin-left: -10px;
+  border-radius: 0;
+ }
+
+ .panel .panel-heading {
+   border-radius: 0;
+ }
+.padding {
+  padding: 20px;
+}
+.full {
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+.full > * {
+  height: 100vh;
+  overflow: scroll;
+}

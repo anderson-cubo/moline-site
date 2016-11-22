@@ -3,7 +3,7 @@ var angular = require('angular')
 var app = angular.module('API', [
   require('angular-ui-router')
 ])
-var _initialUrl = 'http://localhost:9700'
+var _initialUrl = process.env.URL_API
 
 app.factory('$API', function ($q, $http) {
   var _api = {

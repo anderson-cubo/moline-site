@@ -1,5 +1,5 @@
 var spawn = require('child_process').spawn
-
+var path = require('path')
 var _spawn = function (what, ar, opt) {
   var ls = spawn(what, ar, opt)
   ls.stdout.on('data', (data) => {
@@ -16,7 +16,7 @@ var _spawn = function (what, ar, opt) {
 
 var el = [
   _spawn('webpack', ['--watch', '-d']),
-  _spawn('lr-http-server', { cwd: __dirname + '/public' })
+  _spawn('lr-http-server', { cwd: path.join(__dirname, '/public') })
 ]
 process.on('exit', (code) => {
   el.forEach(function (res) {

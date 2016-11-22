@@ -2,10 +2,10 @@
   "name": "moline-site",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,13 +13,13 @@
     "angular": "^1.5.8",
     "angular-ui-router": "^0.3.2",
     "bulma": "^0.2.3",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "raw-loader": "^0.5.1"
-  },
-  "devDependencies": {
     "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "html-minify-loader": "^1.1.0",
+    "json-loader": "^0.5.4",
     "node-sass": "^3.11.2",
+    "node-static": "git://github.com/cloudhead/node-static.git",
+    "raw-loader": "^0.5.1",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3"

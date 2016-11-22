@@ -5,9 +5,10 @@ require('bulma/css/bulma.css')
 var angular = require('angular')
 var app = angular.module('app', [
   require('angular-ui-router'),
+  require('./api'),
   require('./components/login'),
   require('./components/cadastro'),
-  require('./components/aluno')
+  require('./components/home')
 ])
 
 app.config(function ($urlRouterProvider) {

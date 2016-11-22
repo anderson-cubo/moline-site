@@ -1,6 +1,6 @@
 <div class="modal is-active">
   <div class="modal-background"></div>
-  <div class="modal-card">
+  <form ng-submit="send()" class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">
         Login
@@ -9,24 +9,24 @@
       </p>
     </header>
     <section class="modal-card-body">
-      <!-- Content ... -->
-
-            <label class="label">Nome de Usuário</label>
-
-            <p class="control has-icon">
-                <input class="input" type="text" placeholder="Username">
-                    <i class="fa fa-user-o" aria-hidden="true"></i>
-            </p>
-            <label class="label">Senha</label>
-            <p class="control has-icon">
-                <input class="input" type="password" placeholder="Password" >
-                    <i class="fa fa-lock"></i>
-            </p>
-
+      <div class="notification is-danger" ng-show="notif">
+        <button type="button" ng-click="notif = false" class="delete"></button>
+        {{notif}}
+      </div>
+      <label class="label">Nome de Usuário</label>
+      <p class="control has-icon">
+        <input class="input" type="email" ng-model="user.email" placeholder="Email">
+        <i class="fa fa-user" aria-hidden="true"></i>
+      </p>
+      <label class="label">Senha</label>
+      <p class="control has-icon">
+        <input class="input" type="password" ng-model="user.password" placeholder="Senha" >
+        <i class="fa fa-lock"></i>
+      </p>
     </section>
     <footer class="modal-card-foot">
-      <a class="button is-success" href="telaAluno.html">Entrar</a>
+      <button type="submit" class="button is-success" href="telaAluno.html">Entrar</button>
       <a ui-sref="cadastro">Fazer Cadastro</a>
     </footer>
-  </div>
+  </form>
 </div>

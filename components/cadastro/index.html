@@ -1,6 +1,6 @@
 <div class="modal is-active">
     <div class="modal-background"></div>
-    <div class="modal-card">
+    <form ng-submit="send()" class="modal-card">
         <header class="modal-card-head">
             <p class="modal-card-title">
                 Cadastro
@@ -9,33 +9,50 @@
             </p>
         </header>
         <section class="modal-card-body">
-            <label class="label">Nome de Usuário</label>
+            <div class="notification is-danger" ng-show="notif">
+              <button type="button" ng-click="notif = false" class="delete"></button>
+              {{notif}}
+            </div>
+            <label class="label">Nome Completo:</label>
             <p class="control has-icon">
-                <input class="input" type="text" placeholder="Username">
-                <i class="fa fa-user-o" aria-hidden="true"></i>
-
+                <input class="input" ng-model="user.name" type="text" placeholder="Nome completo">
+                <i class="fa fa-envelope"></i>
             </p>
             <label class="label">Email</label>
             <p class="control has-icon">
-                <input class="input" type="email" placeholder="Email">
+                <input class="input" ng-model="user.email" type="email" placeholder="Email">
                 <i class="fa fa-envelope"></i>
             </p>
             <label class="label">Senha</label>
             <p class="control has-icon">
-                <input class="input" type="password" placeholder="Password">
+                <input class="input" ng-model="user.password" type="password" placeholder="Senha">
                 <i class="fa fa-lock"></i>
             </p>
-            <p class="control">
-                <label class="checkbox">
-              <input ng-model="user.teacher" type="checkbox">
-              Sou professor
-            </label>
-            </p>
+            <div class="columns middle_switch">
+              <div class="column">
+                Sou professor
+              </div>
+              <div class="column right_switch">
+                <label class="switch">
+                  <input ng-model="user.is_teacher" type="checkbox">
+                  <div class="slider round"></div>
+                </label>
+              </div>
+            </div>
+            <div ng-hide="user.is_teacher">
+              <label class="label">Cursando:</label>
+              <p class="control">
+                <span class="select">
+                <select ng-model="user.course">
+                  <option ng-repeat="val in coursesList" value="{{val}}">{{val}}</option>
+                </select>
+              </span>
+              </p>
+            </div>
         </section>
         <footer class="modal-card-foot">
-            <a ng-show="user.teacher" ui-sref="professor" class="button is-primary">Cadastrar</a>
-            <a ng-hide="user.teacher" ui-sref="aluno" class="button is-primary">Cadastrar</a>
+            <button class="button is-primary">Cadastrar</button>
             <a ui-sref="login">Fazer Login</a>
         </footer>
-    </div>
+    </form>
 </div>

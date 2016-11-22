@@ -12,7 +12,8 @@ module.exports = {
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
       },
       { test: /\.scss$/, loaders: ['style', 'css', 'sass'] },
-      { test: /\.html$/, loader: 'raw!html-minify' }
+      { test: /\.html$/, loader: 'raw!html-minify' },
+      {test: /\.json$/, loader: 'json-loader'}
     ]
   },
   plugins: [

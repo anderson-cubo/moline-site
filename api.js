@@ -41,6 +41,16 @@ app.factory('$API', function ($q, $http) {
     },
     user: function () {
       return _api.crud('/user')
+    },
+    room: {
+      create: function (obj) { return _api.crud('/room', null, obj) },
+      get: function (id, params) { return _api.crud('/room', id, null, params) },
+      remove: function (id) { return _api.crud('/room', id, null, null, true) }
+    },
+    joined: {
+      create: function (obj) { return _api.crud('/joined', null, obj) },
+      get: function (id, params) { return _api.crud('/joined', id, null, params) },
+      remove: function (id) { return _api.crud('/joined', id, null, null, true) }
     }
   }
   return _api

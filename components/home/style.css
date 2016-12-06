@@ -31,3 +31,9 @@ img{
   height: 100vh;
   overflow: scroll;
 }
+.center {
+  text-align: center;
+}
+.select {
+  max-width: 100%;
+}

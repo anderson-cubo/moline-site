@@ -1,0 +1,32 @@
+.webcam {
+  width: 100%;
+  height: 100%;
+}
+.webcam video {
+  width: 100%;
+  height: 100%;
+}
+.overflow {
+  align-self: flex-end;
+  overflow: scroll;
+  max-width: 100%;
+}
+.tile {
+  flex-direction: column;
+  width: 100%;
+}
+.asd {
+  max-width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.fullll {
+  padding: 10px;
+  width: 100%;
+}
+.fullll input {
+  width: 100% !important;
+}
+.wpadding {
+  padding: 10px;
+}

@@ -1,0 +1,29 @@
+<div class="columns is-multiline is-mobile full">
+  <div class="column">
+    <webcam></webcam>
+  </div>
+  <div class="column is-one-quarter sidebar asd">
+    <div class="tile is-ancestor">
+      <div class="tile overflow wpadding">
+        <div class="notification" ng-repeat="m in messages">
+          {{m.message}}<br>
+          <small>
+            <small>
+              <b>{{m.user.name}}</b><br>
+              {{m.time}}
+            </small>
+          </small>
+        </div>
+      </div>
+      <div class="tile overflow">
+        <form ng-submit="send()" class="control has-addons fullll">
+          <input ng-model="text" class="input" type="text" placeholder="Sua mensagem...">
+          <a class="button is-info">
+            Enviar
+          </a>
+        </form>
+      </div>
+    </div>
+  </article>
+  </div>
+</div>

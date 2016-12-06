@@ -1,151 +1,133 @@
 <div class="columns is-multiline is-mobile full">
-<div class="column padding">
+  <div class="column padding">
     <section class="hero is-light">
         <div class="hero-body">
             <div class="container">
                 <img src="/img/logo.png">
-                <h1 class="title">{{user.name}}</h1>
-                <h2 class="subtitle">{{user.course}}</h2>
             </div>
         </div>
     </section>
-
-    <article class="message" >
-    <div class="message-header">
-          Sala 1344
+    <h2 class="title">Salas</h2>
+    <div class="columns">
+      <div class="column">
+        <p class="control has-addons">
+          <a class="button" ng-click="filter('which', 'today')" ng-class="{'is-danger': (filters.which == 'today')}">
+            <span>Hoje</span>
+          </a>
+          <a class="button" ng-click="filter('which', 'course')" ng-class="{'is-danger': (filters.which == 'course')}">
+            <span>Meu curso</span>
+          </a>
+          <a class="button" ng-click="filter('which', 'mine')" ng-class="{'is-danger': (filters.which == 'mine')}">
+            <span>Minhas salas</span>
+          </a>
+          <a class="button" ng-click="filter('which', 'date')" ng-class="{'is-danger': (filters.which == 'date')}">
+            <span>Salas por data</span>
+            <span ng-show="filters.which == 'date'">:&nbsp;</span>
+            <span ng-show="filters.which == 'date'"><input format="DD/MM/YYYY" class="input is-small" type="tel" moment-picker ng-model="filters.date" change="filter()"></span>
+          </a>
+        </p>
+      </div>
     </div>
-
-    <div class="message-body">
-        <a><img src="\img\live-chat_icon.png" height="100" width="100" align="left" /></a>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Pellentesque risus mi, tempus quis placerat ut, porta nec
-        nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam
-        gravida purus diam, et dictum felis venenatis efficitur.
-        Aenean ac eleifend lacus, in mollis lectus. Donec sodales,
-        arcu et sollicitudin porttitor, tortor urna tempor ligula,
-        id porttitor mi magna a neque. Donec dui urna, vehicula et
-        sem eget, facilisis sodales sem.
-    </div>
-    </article>
-
-    <article class="message" >
-    <div class="message-header">
-          Sala 1454
-    </div>
-
-    <div class="message-body">
-        <a><img src="\img\live-chat_icon.png" height="100" width="100" align="left" /></a>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Pellentesque risus mi, tempus quis placerat ut, porta nec
-        nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam
-        gravida purus diam, et dictum felis venenatis efficitur.
-        Aenean ac eleifend lacus, in mollis lectus. Donec sodales,
-        arcu et sollicitudin porttitor, tortor urna tempor ligula,
-        id porttitor mi magna a neque. Donec dui urna, vehicula et
-        sem eget, facilisis sodales sem.
-    </div>
-    </article>
-    <article class="message is-info">
-    <div class="message-header">
-        Informações
-    </div>
-    <div class="message-body">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Pellentesque risus mi, tempus quis placerat ut, porta nec
-        nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam
-        gravida purus diam, et dictum felis venenatis efficitur.
-        Aenean ac eleifend lacus, in mollis lectus. Donec sodales,
-        arcu et sollicitudin porttitor, tortor urna tempor ligula,
-        id porttitor mi magna a neque. Donec dui urna, vehicula et
-        sem eget, facilisis sodales sem.
-    </div>
-    </article>
-    <footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <p>
-        <strong>Bulma</strong> by <a href="http://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC ANS 4.0</a>.
-      </p>
-      <p>
-        <a class="icon" href="https://github.com/jgthms/bulma">
-          <i class="fa fa-github"></i>
-        </a>
-      </p>
-    </div>
-  </div>
-</footer>
+    <div class="box" ng-repeat="room in rooms">
+      <article class="media">
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <strong>{{room.name}} </strong> ({{room.course}})
+              <br>
+              {{room.desc}}
+            </p>
+          </div>
+          <nav class="level">
+            <div class="level-left">
+              <span class="level-item">
+                as {{room.date | date : 'dd/MM/yyyy HH:mm' }}
+              </span>
+              <span ng-if="room.user._id == user._id"  class="level-item">
+                <a ui-sref="room({id: room._id})" class="button is-primary">Abrir Sala</a>
+              </span>
+              <span ng-if="room.user._id != user._id"  class="level-item">
+                <a ng-show="((room.quantity - room._quantity) > 0) && (!room.joined)" ng-click="join(room)" class="button is-primary">Participar</a>
+              </span>
+              <span ng-if="room.user._id != user._id"  class="level-item">
+                <a ng-show="room.today && room.joined" ui-sref="room({id: room._id})" class="button is-primary">Entrar</a>
+              </span>
+              <a ng-if="room.user._id == user._id" class="level-item">
+                <button ng-click="removeRoom(room._id)" class="button is-danger">Excluir sala</button>
+              </a>
             </div>
-        <div class="column is-one-quarter sidebar">
-
-            <a class="button is-small" href="login.html">Sair</a>
-            <img src="\img\person-flat.png" height="150px" width="150px"/>
-
-
-            <h3><b>Nome:</b> <i>Matheus Ramos</i></h3>
-            <h3><b>Matrícula:</b> <i>12345667</i></h3>
-            <h3><b>Curso:</b> <i>Análise e Desenvolvimento de Sistemas</i></h3>
-            <h3><b>Turno:</b> <i>Noturno</i></h3>
-
-        <nav class="panel" >
-            <p class="panel-heading">
-                 Video Aulas
-            </p>
-            <p class="panel-tabs">
-                <a class="is-active" href="#">Todas</a>
-                <a href="#">Salvas</a>
-                <a href="#">Ao Vivo</a>
-                <a href="#">Programadas</a>
-            </p>
-        <a class="panel-block is-active" href="#">
-            <span class="panel-icon">
-            <i class="fa fa-book"></i>
-            </span>
-                Metodologias Ágeis
-        </a>
-        <a class="panel-block" href="#">
-             <span class="panel-icon">
-             <i class="fa fa-book"></i>
-             </span>
-                 Algorítimos
-        </a>
-        <a class="panel-block" href="#">
-            <span class="panel-icon">
-            <i class="fa fa-book"></i>
-            </span>
-                Linguagem de Programação 2
-        </a>
-        <a class="panel-block" href="#">
-    <span class="panel-icon">
-      <i class="fa fa-code-fork"></i>
-    </span>
-    Projeto de Banco de Dados
-  </a>
-  <a class="panel-block" href="#">
-    <span class="panel-icon">
-      <i class="fa fa-book"></i>
-    </span>
-    Marketing
-  </a>
-  <a class="panel-block" href="#">
-    <span class="panel-icon">
-      <i class="fa fa-code-fork"></i>
-    </span>
-    Linguagem de Programação 1
-  </a>
-  <a class="panel-block" href="#">
-    <span class="panel-icon">
-      <i class="fa fa-book"></i>
-    </span>
-    Matemática
-  </a>
-  <label class="panel-block">
-    <input type="checkbox">
-    Remember me
-  </label>
-    </nav>
+          </nav>
+        </div>
+      </article>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            <strong>Moline</strong>.
+          </p>
+          <p>
+            <a class="icon" href="https://github.com/mindmeoh">
+              <i class="fa fa-github"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+    </footer>
   </div>
-
-
+  <div class="column is-one-quarter sidebar center">
+    <a class="button is-small" ui-sref="login">Sair</a>
+    <br>
+    <br>
+    <img src="/img/person-flat.png" style="padding:0 !important;" height="150px" width="150px"/>
+    <h1 class="title">{{user.name}}</h1>
+    <h2 class="subtitle">{{user.course}}{{user.is_teacher ? 'Professor' : ''}}</h2>
+    <br>
+    <br>
+    <article ng-if="user.is_teacher" class="message is-warning">
+      <div class="message-header">
+        Criar nova sala:
+      </div>
+      <div class="message-body">
+        <div class="notification is-danger" ng-show="room.error">
+          <button type="button" ng-click="room.error = false" class="delete"></button>
+          {{room.error}}
+        </div>
+        <form ng-submit="createRoom()">
+          <label class="label">Nome da sala:</label>
+          <p class="control has-icon">
+              <input class="input" ng-model="room.name" type="text" placeholder="Nome...">
+              <i class="fa fa-window-maximize"></i>
+          </p>
+          <label class="label">Máximo de pessoas na sala:</label>
+          <p class="control has-icon">
+              <input class="input" ng-model="room.quantity" type="number" min="1" placeholder="Ex: 2">
+              <i class="fa fa-window-maximize"></i>
+          </p>
+        <label class="label">Descrição:</label>
+          <p class="control">
+              <textarea class="textarea" ng-model="room.desc" type="text" placeholder="Descirção..."></textarea>
+          </p>
+          <div>
+            <label class="label">Curso:</label>
+            <p class="control">
+              <span class="select">
+              <select class="select" ng-model="room.course">
+                <option ng-repeat="val in coursesList" value="{{val}}">{{val}}</option>
+              </select>
+            </span>
+            </p>
+          </div>
+          <label class="label">Horário de inicio:</label>
+          <p class="control has-icon">
+            <input class="input" moment-picker format="DD/MM/YYYY HH:mm" locale="pt-br" ng-model="room.date" type="tel" placeholder="Horário de inicio">
+            <i class="fa fa-calendar"></i>
+          </p>
+          <p class="control">
+            <button class="button is-primary">Criar</button>
+          </p>
+        </form>
+      </div>
+    </article>
+  </div>
 </div>

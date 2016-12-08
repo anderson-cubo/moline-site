@@ -44,7 +44,9 @@ app.controller('homeCtrl', function ($scope, $API, $sdb) {
   $scope.coursesList = require('../../misc/lista_de_cursos.json')
   $scope.upload = function (file) {
     $API.upload(file).then(function (res) {
-      console.log(res)
+      var url = $API.initialUrl() + '/public/uploads/' + res.data.file;
+      $scope.user.avatar = url
+      $API.user($scope.user._id, { avatar: url })
     })
   }
   $scope.filter = function (which, what) {

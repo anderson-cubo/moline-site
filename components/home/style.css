@@ -40,4 +40,5 @@ img{
 .avatar {
   object-fit: cover;
   cursor: pointer;
+  border-radius: 200px;
 }

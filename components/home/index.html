@@ -28,7 +28,7 @@
         </p>
       </div>
     </div>
-    <div class="box" ng-repeat="room in rooms">
+    <div class="box" . ng-hide="kicked[room._id]" ng-repeat="room in rooms">
       <article class="media">
         <div class="media-content">
           <div class="content">
@@ -79,7 +79,7 @@
     <a class="button is-small" ui-sref="login">Sair</a>
     <br>
     <br>
-    <img src="/img/person-flat.png" style="padding:0 !important;" height="150px" width="150px"/>
+    <img class="avatar" ngf-select="upload($file)"  ngf-pattern="'image/*'" ngf-accept="'image/*'" ng-src="{{ user.avatar || '/img/person-flat.png' }}" style="padding:0 !important;" height="150px" width="150px" />
     <h1 class="title">{{user.name}}</h1>
     <h2 class="subtitle">{{user.course}}{{user.is_teacher ? 'Professor' : ''}}</h2>
     <br>

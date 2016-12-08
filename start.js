@@ -15,7 +15,7 @@ var _spawn = function (what, ar, opt) {
 }
 
 var el = [
-  _spawn('webpack', ['--watch', '-d']),
+  _spawn('webpack', ['-d', '--watch']),
   _spawn('lr-http-server', { cwd: path.join(__dirname, '/public') })
 ]
 process.on('exit', (code) => {

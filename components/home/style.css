@@ -37,3 +37,7 @@ img{
 .select {
   max-width: 100%;
 }
+.avatar {
+  object-fit: cover;
+  cursor: pointer;
+}

@@ -1,26 +1,36 @@
 <div class="columns is-multiline is-mobile full">
   <div class="column">
-    <webcam></webcam>
+     <video height="300" id="localVideo"></video>
+     <div id="remotesVideos"></div>
   </div>
   <div class="column is-one-quarter sidebar asd">
     <div class="tile is-ancestor">
       <div class="tile overflow wpadding">
-        <div class="notification" ng-repeat="m in messages">
+        <div class="notification" ng-class="{teacher: m.user.is_teacher}" ng-repeat="m in messages">
           {{m.message}}<br>
           <small>
             <small>
               <b>{{m.user.name}}</b><br>
               {{m.time}}
+              <br>
+              <a ng-show="user.is_teacher && (!m.user.is_teacher)" ng-click="kick(m.user._id)" class="button is-danger">
+                Bloquear usuário
+              </a>
             </small>
           </small>
         </div>
       </div>
       <div class="tile overflow">
+        <div class="fullll" ng-if="user.is_teacher">
+          <a ng-click="close()" class="button is-danger">
+            Fechar sala
+          </a>
+        </div>
         <form ng-submit="send()" class="control has-addons fullll">
           <input ng-model="text" class="input" type="text" placeholder="Sua mensagem...">
-          <a class="button is-info">
+          <button class="button is-info">
             Enviar
-          </a>
+          </button>
         </form>
       </div>
     </div>

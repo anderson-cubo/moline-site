@@ -21,7 +21,7 @@ app.config(function ($stateProvider) {
   })
 })
 
-app.controller('homeCtrl', function ($scope, $API) {
+app.controller('homeCtrl', function ($scope, $API, $sdb) {
   $scope.day = moment()
   $scope.user = {}
   $scope.filters = {
@@ -35,8 +35,18 @@ app.controller('homeCtrl', function ($scope, $API) {
     date: null,
     quantity: null
   }
+  $scope.kicked = {}
+  $sdb.find().forEach(function (data) {
+    $scope.kicked[data.kicked] = true
+  })
+  console.log($scope.kicked)
   $scope.rooms = []
   $scope.coursesList = require('../../misc/lista_de_cursos.json')
+  $scope.upload = function (file) {
+    $API.upload(file).then(function (res) {
+      console.log(res)
+    })
+  }
   $scope.filter = function (which, what) {
     if (which) {
       $scope.filters[which] = what

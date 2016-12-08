@@ -1,15 +1,69 @@
 // JS
 var angular = require('angular')
+var $ = require('jquery')
 var app = angular.module('API', [
   require('angular-ui-router')
 ])
 var _initialUrl = process.env.URL_API
-
-app.factory('$API', function ($q, $http) {
+var socket = null
+app.factory('$API', function ($q, $http, $timeout, Upload) {
   var _api = {
     initialUrl: function (_set) {
       if (_set) _initialUrl = _set
       return _initialUrl
+    },
+    socket: {
+      start: function () {
+        $.getScript(_api.initialUrl() + '/socket.io/socket.io.js')
+        .done(function () {
+          socket = io(_api.initialUrl())
+        })
+      },
+      wait: function (done) {
+        if (socket == null) {
+          setTimeout(function () {
+            _api.socket.wait(done)
+          }, 400)
+        } else {
+          done()
+        }
+      },
+      join: function (room) {
+        socket.emit('join', room)
+      },
+      leave: function (room) {
+        socket.emit('leave', room)
+      },
+      close: function (room) {
+        socket.emit('close', room)
+      },
+      message: function (room, obj) {
+        socket.emit('message', room, obj)
+      },
+      kick: function (room, userID) {
+        socket.emit('kick', room, userID)
+      },
+      onMessage: function (cback) {
+        socket.on('message', function (obj) {
+          $timeout(function () {
+            cback(obj)
+          })
+        })
+      },
+      onClose: function (cback) {
+        socket.on('close', function (obj) {
+          $timeout(function () {
+            cback(obj)
+          })
+        })
+      },
+      onKicked: function (cback) {
+        socket.on('kicked', function (obj) {
+          $timeout(function () {
+            cback(obj)
+          })
+        })
+      }
     },
     crud: function (url, id, data, params, toDelete) {
       return $q(function (resolve, reject) {
@@ -30,6 +84,13 @@ app.factory('$API', function ($q, $http) {
         })
       })
     },
+    upload: function (file) {
+      return Upload.upload({
+        url: _api.initialUrl() + '/upload',
+        withCredentials: true,
+        data: { file: file }
+      })
+    },
     login: function (email, password) {
       return _api.crud('/user/login', null, {
         email: email,
@@ -39,8 +100,8 @@ app.factory('$API', function ($q, $http) {
     register: function (obj) {
       return _api.crud('/user/register', null, obj)
     },
-    user: function () {
-      return _api.crud('/user')
+    user: function (id, data) {
+      return _api.crud('/user', id, data)
     },
     room: {
       create: function (obj) { return _api.crud('/room', null, obj) },
@@ -51,6 +112,9 @@ app.factory('$API', function ($q, $http) {
       create: function (obj) { return _api.crud('/joined', null, obj) },
       get: function (id, params) { return _api.crud('/joined', id, null, params) },
       remove: function (id) { return _api.crud('/joined', id, null, null, true) }
+    },
+    chat: {
+      insert: function (obj) { return _api.crud('/chat', null, obj) }
     }
   }
   return _api
